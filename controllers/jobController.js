@@ -30,5 +30,13 @@ export async function createJob(req, res) {
 }
 
 export async function deleteJob(req, res) {
-    
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: "No such job"})
+    }
+
+    const deletion = await Job.deleteOne({ _id: id })
+
+    res.status(200).json(deletion)
 }

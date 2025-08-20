@@ -1,6 +1,10 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import jobRoutes from './routes/jobs.js'
+import dotenv from "dotenv";
+import { connectDB } from "./config/db.js";
+
+dotenv.config();
 
 const app = express()
 
@@ -13,6 +17,7 @@ app.use((req, res, next) => {
 
 app.use(jobRoutes)
 
-mongoose.connect(process.env.DB_URI).then(
-    app.listen(process.env.PORT, () => console.log(`connected & listening on port ${process.env.PORT}`))
+mongoose.connect(process.env.MONGO_URI).then(
+    app.listen(process.env.PORT, () => console.log(`server started at http://localhost:${process.env.PORT}`))
 )
+
